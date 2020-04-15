@@ -15,6 +15,9 @@ int main(){
     }
 
     sort(v.begin(), v.end());
+    
+//    for(auto x: v)
+//    	cout << x << ' ';
 
     int cnt=1, best_cnt=0;
     long long pre_num = v[0], best = v[0];
@@ -25,10 +28,9 @@ int main(){
             if(cnt > best_cnt){
                 best_cnt = cnt;
                 best = pre_num;
-                cnt = 0;
             }
+            cnt = 1;
             pre_num = v[i];
-            cnt++;
         }
     }
     cout << best << '\n';
