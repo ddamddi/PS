@@ -1,39 +1,40 @@
 #include <iostream>
-#include <vector>
 #include <algorithm>
 using namespace std;
 
 int main(){
-    vector<long long> v;
+    cin.tie(0);
+    cout.tie(0);
+    ios_base::sync_with_stdio(false);
+    
     int n;
     cin >> n;
+    long long* arr = new long long[n];
+    for(int i=0; i<n; i++)
+        cin >> arr[i];
+    sort(arr, arr+n);
     
-    for(int i=0; i<n; i++){
-        long long x;
-        cin >> x;
-        v.push_back(x);
-    }
-
-    sort(v.begin(), v.end());
-    
-//    for(auto x: v)
-//    	cout << x << ' ';
-
-    int cnt=1, best_cnt=0;
-    long long pre_num = v[0], best = v[0];
-    for(int i=1; i<v.size(); i++){
-        if(v[i] == pre_num)
+    int cnt=1, max_count=0;
+    long long max_num, current_num = arr[0];
+    for(int i=1; i<n; i++){
+        if(arr[i] == current_num)
             cnt++;
         else{
-            if(cnt > best_cnt){
-                best_cnt = cnt;
-                best = pre_num;
+            if(cnt > max_count){
+                max_count = cnt;
+                max_num = current_num;
             }
             cnt = 1;
-            pre_num = v[i];
+            current_num = arr[i];
         }
     }
-    cout << best << '\n';
 
-    return 0;
+    // 한번더 check
+    // e.g. 7 (1 1 2 2 3 3 3) 일 때
+    if(cnt > max_count){
+        max_count = cnt;
+        max_num = current_num;
+    }
+    
+    cout << max_num << '\n';
 }
