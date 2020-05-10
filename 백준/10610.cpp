@@ -5,7 +5,7 @@
 using namespace std;
 
 bool cmp(int x, int y){
-	if(x < y)
+	if(x <= y)
 		return false;
 	return true;
 }
