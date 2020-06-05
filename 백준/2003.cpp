@@ -1,36 +1,41 @@
 #include <iostream>
-#include <vector>
-#include <algorithm>
+#define MAX 10000
 using namespace std;
+
+int arr[MAX];
 
 int main(){
 	cin.tie(0);
 	cout.tie(0);
 	ios_base::sync_with_stdio(false);
 	
-	int n,m;
+	int n, m;
 	cin >> n >> m;
-	
-	vector<int> v;
-	for(int i=0; i<n; i++){
-		int tmp;
-		cin >> tmp;
-		v.push_back(tmp);
-	}
-	
-	int cnt = 0;
-	for(int i=1; i<=n; i++){	// j-i
-		for(int j=0; j<=n-i; j++){
-			int sum = 0;
-			for(int k=j; k<j+i; k++){
-				sum += v[k];
-			}
-			if(sum == m)
-				cnt++;
+	for(int i=0; i<n; i++)
+		cin >> arr[i];
+		
+	int low, high, sum = arr[0];
+	low = high = 0;
+	int ans = 0;
+	while(1){
+		if(high == n)
+			break;
+		
+		if(sum == m){
+			ans++;
+			high++;
+			sum += arr[high];
+		}
+		else if(sum < m){
+			high++;
+			sum += arr[high];
+		}
+		else if(sum > m){
+			sum -= arr[low];
+			low++;
 		}
 	}
 	
-	cout << cnt << '\n';
-	
-	return 0;	
+	cout << ans << '\n';
+	return 0;
 }
